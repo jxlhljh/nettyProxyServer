@@ -1,0 +1,50 @@
+<configuration>
+	<property name="log_dir" value="./logs" />
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- encoder 默认配置为PatternLayoutEncoder -->
+        <encoder>
+            <pattern>%d %5p [%t] %c{30}.%M:%L - %m%n</pattern>
+        </encoder>
+    </appender>
+	<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+	  	<file>${log_dir}/log.log</file>
+	  	<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+	    <!-- rollover daily -->
+	    <fileNamePattern>${log_dir}/%d{yyyy-MM-dd}/%d{yyyy-MM-dd}.%i.log.zip</fileNamePattern>
+			<!-- each file should be at most 10MB, keep 7 days worth of history, but at most 1GB -->
+			<maxFileSize>100MB</maxFileSize>
+			<maxHistory>7</maxHistory>
+			<totalSizeCap>1GB</totalSizeCap>
+	  	</rollingPolicy>
+		<encoder>
+		    <pattern>%d %5p [%t] %c{30}.%M:%L - %m%n</pattern>
+		</encoder>
+	</appender>
+	<!-- ERROR级别的日志独立输出，方便查询定位 -->
+	<appender name="ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+	  	<file>${log_dir}/error.log</file>
+	  	<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+	    <!-- rollover daily -->
+	    <fileNamePattern>${log_dir}/%d{yyyy-MM-dd}/%d{yyyy-MM-dd}.%i.error.log.zip</fileNamePattern>
+			<!-- each file should be at most 10MB, keep 7 days worth of history, but at most 1GB -->
+			<maxFileSize>100MB</maxFileSize>
+			<maxHistory>7</maxHistory>
+			<totalSizeCap>1GB</totalSizeCap>
+	  	</rollingPolicy>
+		<encoder>
+		    <pattern>%d %5p [%t] %c{30}.%M:%L - %m%n</pattern>
+		</encoder>
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+		    <level>ERROR</level>
+		    <onMatch>ACCEPT</onMatch>
+		    <onMismatch>DENY</onMismatch>
+		</filter>
+	</appender>
+
+    <root level="INFO">
+	    <appender-ref ref="STDOUT" />
+	    <appender-ref ref ="FILE"/>
+	    <appender-ref ref ="ERROR"/>
+    </root>
+
+</configuration>

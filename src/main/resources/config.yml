@@ -1,0 +1,20 @@
+configs:
+    #端口转发demo
+  - enable: true
+    serverType: forward
+    serverPort: 13306
+    remoteHost: 127.0.0.1
+    remotePort: 3306
+    
+    #http/https代理demo
+  - enable: false
+    serverType: http
+    serverPort: 3128
+    
+    #sock5代理demo,需要认证
+  - enable: false
+    serverType: sock5
+    serverPort: 1080
+    needLogin: true
+    username: "test"
+    password: "123456"
