@@ -1,6 +1,5 @@
 target/
 logs/
-src/test
 
 ### Eclipse ###
 .settings
