@@ -7,7 +7,7 @@ configs:
     remotePort: 3306
     
     #http/https代理demo
-  - enable: false
+  - enable: true
     serverType: http
     serverPort: 3128
     
